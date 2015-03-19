@@ -1,1 +1,1 @@
-MINDBODY API fixes and improvements to reflect current webservice endpoints
+MINDBODY API fixes and improvements to reflect current webservice endpoints.
