@@ -42,6 +42,30 @@ class MBClientService extends MBAPIService
 		return $result;
 	}
 	
+	public function GetAllClients($PageSize = null, $CurrentPage = null, $XMLDetail = XMLDetail::Full, $Fields = null, SourceCredentials $credentials = null)
+	{
+		$additions['SearchText'] = '';
+		$params = $this->GetMindbodyParams($additions, $this->GetCredentials($credentials), $XMLDetail, $PageSize, $CurrentPage, $Fields, $this->defaultUserCredentials);
+		
+		try
+		{
+			$result = $this->client->GetClients($params);
+		}
+		catch (SoapFault $fault)
+		{
+			DebugResponse($result);
+			echo '</xmp><br/><br/> Error Message : <br/>', $fault->getMessage(); 
+		}
+		
+		if ($this->debug)
+		{
+			DebugRequest($this->client);
+			DebugResponse($this->client, $result);
+		}
+		
+		return $result;
+	}
+
 	public function AddArrival($client, $location, SourceCredentials $credentials = null, $XMLDetail = XMLDetail::Full, $PageSize = NULL, $CurrentPage = NULL, $Fields = NULL)
 	{
 		$additions['ClientID'] = $client;
